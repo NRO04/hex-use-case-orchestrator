@@ -1,0 +1,17 @@
+{
+    "name": "ro/hex-use-case-handler",
+    "description": "Handle use case for Hexagonal architecture",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Ro\\HexUseCaseHandler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nro04",
+            "email": "ronicolas04@gmail.com"
+        }
+    ],
+    "require": {}
+}
