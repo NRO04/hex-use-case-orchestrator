@@ -1,0 +1,61 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "a12b044fcdcdf101f9cc807752e7c9b9",
+    "packages": [
+        {
+            "name": "ro/dto-php",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NRO04/dto-ro.git",
+                "reference": "8d54b0a9fc8860502f683c1b311bbe5aa1d90d37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NRO04/dto-ro/zipball/8d54b0a9fc8860502f683c1b311bbe5aa1d90d37",
+                "reference": "8d54b0a9fc8860502f683c1b311bbe5aa1d90d37",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ro\\DtoPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NRO",
+                    "email": "ronicolas04@gmail.com"
+                }
+            ],
+            "description": "DTO (DATA TRANSFER OBJECT) is a library that allows transferring data between different processes across the architecture.Dto - ro for php improves communication by optimizing the number of method calls.",
+            "keywords": [
+                "dto",
+                "dto-for-laravel",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/NRO04/dto-ro/issues",
+                "source": "https://github.com/NRO04/dto-ro/tree/1.0.1"
+            },
+            "time": "2021-09-04T09:09:16+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
+}
