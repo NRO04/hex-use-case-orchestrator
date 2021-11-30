@@ -1,2 +1,2 @@
 # hex-use-case-handler
-Handle use case for Hexagonal architecture
+Use Case Orchestrator for Hex Architecture in Laravel
