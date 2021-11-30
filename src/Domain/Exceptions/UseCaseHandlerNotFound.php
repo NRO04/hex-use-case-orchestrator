@@ -2,7 +2,8 @@
 
 namespace Ro\HexUseCaseOrchestrator\Domain\Exceptions;
 
-class UseCaseNotFound extends \DomainException
+
+class UseCaseHandlerNotFound extends \DomainException
 {
 
 }

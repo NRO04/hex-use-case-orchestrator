@@ -1,6 +1,6 @@
 <?php
 
-namespace Ro\HexUseCaseHandler\Domain\Repository;
+namespace Ro\HexUseCaseOrchestrator\Domain\Repository;
 
 use Ro\DtoPhp\Infrastructure\DTO;
 
