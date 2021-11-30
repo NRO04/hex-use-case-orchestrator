@@ -1,6 +1,6 @@
 <?php
 
-namespace Ro\HexUseCaseHandler\Domain\Contract\Schema;
+namespace Ro\HexUseCaseOrchestrator\Domain\Contract\Schema;
 
 interface UseCaseHandlerSchema
 {

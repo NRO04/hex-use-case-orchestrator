@@ -4,7 +4,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Ro\\HexUseCaseHandler\\": "src/"
+            "Ro\\HexUseCaseOrchestrator\\": "src/"
         }
     },
     "authors": [
@@ -14,6 +14,13 @@
         }
     ],
     "require": {
-        "ro/dto-php": "^1.0"
+        "php": ">=7.4",
+        "ro/dto-php": "^1.0",
+        "illuminate/support": "^8.73",
+        "illuminate/contracts": "^8.73"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "laravel/framework": "^8.73"
     }
 }
