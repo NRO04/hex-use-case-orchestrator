@@ -1,5 +1,5 @@
 {
-    "name": "ro/hex-use-case-handler",
+    "name": "ro/hex-use-case-orchestrator",
     "description": "Handle use case for Hexagonal architecture",
     "type": "library",
     "autoload": {
