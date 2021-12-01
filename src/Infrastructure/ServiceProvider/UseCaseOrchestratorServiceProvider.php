@@ -21,9 +21,8 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
-
             $this->publishes([
-                $this->configPath() => config_path('use-case-handlers.php'),
+                $this->configPath() => base_path('app/http/use-case-handlers.php'),
             ], 'use-case-handlers');
         }
     }
