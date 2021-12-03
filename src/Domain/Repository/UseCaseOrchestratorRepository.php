@@ -7,8 +7,13 @@ use Ro\HexUseCaseOrchestrator\Domain\Contract\Schema\UseCaseHandlerSchema;
 interface UseCaseOrchestratorRepository
 {
 
+    /* Get all handlers that are already registered in the handlersCollection */
     function getHandlers(): array;
 
+    /* Get a specific handler by its name */
     function get(string $handlerName): UseCaseHandlerSchema;
+
+    /* Register */
+    function register(UseCaseHandlerSchema $handler): void;
 
 }
