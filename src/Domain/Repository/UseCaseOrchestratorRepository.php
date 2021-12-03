@@ -13,7 +13,4 @@ interface UseCaseOrchestratorRepository
     /* Get a specific handler by its name */
     function get(string $handlerName): UseCaseHandlerSchema;
 
-    /* Register */
-    function register(UseCaseHandlerSchema $handler): void;
-
 }

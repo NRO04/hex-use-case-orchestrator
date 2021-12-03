@@ -53,12 +53,13 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
             ]);
             */
 
+            
         }
     }
 
     public function loadHandlers(): array
     {
-        return $this->app['app']['UseCase.Handlers'];
+        return $this->app['app']['UseCase/Handlers.php'];
     }
 
     /**
