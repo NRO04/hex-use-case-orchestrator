@@ -20,7 +20,10 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
         );
 
         /* Add the UseCaseOrchestrator to the Service container,
-        then it is possible use it with Dependency Injection */
+        then it is possible use it with Dependency Injection, The UseCaseOrchestrator
+        works with Dependency Inversion principle. So, it is possible to inject classes that implement
+        useCaseHandlerSchemaInterface.
+        */
         $this->app->singleton(
             UseCaseOrchestrator::class,
             function ($app) {
@@ -40,20 +43,15 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
                 /* Publish the config file */
                 $this->configPath() => config_path('use-case-handlers.php'),
 
-                /* Publish the use case handler path file */
-                $this->basePath() => app_path(config('use-case-handlers.handlers.path')),
-
                 /* Publish the log file */
                 $this->logsPath() => storage_path(config('use-case-handlers.logs.path')),
             ], 'use-case-handlers-config');
-
             /*
             config([
                 'use-case-handlers' => $this->loadConfig(),
             ]);
             */
 
-            
         }
     }
 
