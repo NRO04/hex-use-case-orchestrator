@@ -13,7 +13,14 @@ return [
   */
 
     'handlers' => [
-        'path' => 'UseCases/Handlers.php'
+        /*
+         * Example:
+        |--------------------------------------------------------------------------
+        [
+            '@handler-name' => UserUseCaseHandler::class,
+            '@service-for-handler' => UserService::class,
+        ],
+         */
     ],
     'logs' => [
         'path' => 'logs/use-case-handlers.log',
