@@ -16,9 +16,9 @@ return [
         /*
          * Example:
         |--------------------------------------------------------------------------
-        [
-            '@handler-name' => UserUseCaseHandler::class,
-            '@service-for-handler' => UserService::class,
+        'put-here-handler-name' =>[
+            '@handler' => UserUseCaseHandler::class, //key @handler is reserved
+            '@service' => UserService::class, //key @service is reserved
         ],
          */
     ],
