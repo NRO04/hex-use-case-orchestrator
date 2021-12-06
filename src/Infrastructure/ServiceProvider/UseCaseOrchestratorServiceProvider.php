@@ -28,7 +28,7 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
             UseCaseOrchestrator::class,
             function ($app) {
                 return new UseCaseOrchestrator(
-                    $this->loadHandlers()
+                    $this->loadHandlers(config('use-case-handlers.handlers'))
                 );
             }
         );
@@ -46,16 +46,10 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
                 /* Publish the log file */
                 $this->logsPath() => storage_path(config('use-case-handlers.logs.path')),
             ], 'use-case-handlers-config');
-            /*
-            config([
-                'use-case-handlers' => $this->loadConfig(),
-            ]);
-            */
-
         }
     }
 
-    public function loadHandlers(): array
+    public function loadHandlers(array $handlers): array
     {
         return $this->app['app']['UseCase/Handlers.php'];
     }
