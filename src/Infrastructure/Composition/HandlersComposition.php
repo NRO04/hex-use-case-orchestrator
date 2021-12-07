@@ -12,10 +12,12 @@ class HandlersComposition implements CompositionApiRepository
         'dependency' => 'required'
     ];
     private array $handlerCompositionApi;
+    private array $reverseHandlersComposition; // reverse of handler composition api
 
     function __construct(array $configuration)
     {
         $this->handlerCompositionApi = $configuration['handler-composition-api'];
+        $this->reverseStructureOfTheComposition();
     }
 
     function getHandlerCompositionApi(): array
@@ -35,12 +37,21 @@ class HandlersComposition implements CompositionApiRepository
         }
     }
 
-    function checkStructureCompositionApi(string $property_to_validate): void
+    function reverseStructureOfTheComposition(): void
     {
-        foreach ($this->getHandlerCompositionApi() as $key => $handler_composition) {
-            if ($handler_composition["$key"] == $property_to_validate) {
-                return;
-            }
+        foreach ($this->getHandlerCompositionApi() as $key_composition => $handlerComposition) {
+            $this->reverseHandlersComposition[$handlerComposition["$key_composition"]] = $key_composition;
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    function checkStructureCompositionApi(string $property_to_validate): bool
+    {
+        if (!array_key_exists("$property_to_validate", $this->reverseHandlersComposition)) {
+            throw new Exception("$property_to_validate does not exits in handlers definition.");
+        }
+        return 1;
     }
 }
