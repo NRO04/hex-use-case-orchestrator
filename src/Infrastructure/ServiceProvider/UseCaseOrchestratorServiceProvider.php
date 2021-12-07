@@ -4,6 +4,8 @@ namespace Ro\HexUseCaseOrchestrator\Infrastructure\ServiceProvider;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Application as LaravelApplication;
+use ReflectionException;
+use Ro\HexUseCaseOrchestrator\Infrastructure\build\BuildHandlers;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Orchestrator\UseCaseOrchestrator;
 
 define('HEX_USE_CASE_HANDLERS_PATH', __DIR__ . '/../../../app/UseCases/Handlers.php');
@@ -28,11 +30,10 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
             UseCaseOrchestrator::class,
             function ($app) {
                 return new UseCaseOrchestrator(
-                    $this->loadHandlers(config('use-case-handlers.handlers'))
+                    $this->loadHandlers(new BuildHandlers(config('use-case-handlers')))
                 );
             }
         );
-
     }
 
     public function boot()
@@ -49,9 +50,12 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
         }
     }
 
-    public function loadHandlers(array $handlers): array
+    /**
+     * @throws ReflectionException
+     */
+    public function loadHandlers(BuildHandlers $build_handlers): array
     {
-        return $this->app['app']['UseCase/Handlers.php'];
+        return $build_handlers->compose();
     }
 
     /**
