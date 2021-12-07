@@ -16,14 +16,19 @@ return [
         /*
          Example:
         'put-here-handler-name' =>[
-            '@handler' => UserUseCaseHandler::class, //key @handler is defined in composition.
-            '@service' => UserService::class, //key @service is reserved
+            '@handler' => UserUseCaseHandler::class, //key @handler is defined in handler-composition-api.
+            '@service' => UserService::class, //key @service is defined in handler-composition-api.
         ],
          */
     ],
-    //Defined how will be the composition of the use case handlers to be use it.
+    //Defines how will be the composition of the use case handlers to be used it.
     'handler-composition-api' => [
-        //handler defines how will be call it when the use case will be defined in the handler section.
+        /* handler property is reserved and this one, defines how the property will be nominated
+        in the handler section when the use case been statement.
+        You can change the default alias of the handler => @handler, if you want to use a different name.
+        It is important to know that the handler property value must be defined in the handler section.
+         And this one must be the same as the key of the handler in the handlers section.
+        */
         'handler' => '@handler',
         //dependency defines how will be call it when the use case will be defined in the service section.
         'dependency' => '@service',
