@@ -22,7 +22,7 @@ return [
          */
     ],
     //Defined how will be the composition of the use case handlers to be use it.
-    'api-composition' => [
+    'composition-api' => [
         //handler defines how will be call it when the use case will be defined in the handler section.
         'handler' => '@handler',
         //dependency defines how will be call it when the use case will be defined in the service section.
