@@ -3,30 +3,36 @@
 namespace Ro\HexUseCaseOrchestrator\Infrastructure\Composition;
 
 use Exception;
+use Ro\HexUseCaseOrchestrator\Domain\Repository\CompositionApiRepository;
 
-class ConfigurationComposition
+class ConfigurationComposition implements CompositionApiRepository
 {
-    private array $baseApiConfiguration = [
-        'api-composition' => 'required',
+    private array $baseConfigurationApi = [
+        'composition-api' => 'required',
         'handlers' => 'required',
         'logs' => 'required'
     ];
 
-    private array $apiCompositionConfiguration = [];
+    private array $configurationApiComposition = [];
 
-    function __construct(array $api_composition_configuration)
+    function __construct(array $configuration_api_composition)
     {
-        $this->apiCompositionConfiguration = $api_composition_configuration;
+        $this->configurationApiComposition = $configuration_api_composition;
+    }
+
+    public function getConfigurationCompositionApi(): array
+    {
+        return $this->configurationApiComposition;
     }
 
     /**
      * @throws Exception
      */
-    function execute()
+    function execute(): void
     {
-        foreach ($this->apiCompositionConfiguration as $config_option => $value_option) {
-            if (!array_key_exists($config_option, $this->baseApiConfiguration)) {
-                throw new Exception("The configuration option '$config_option' is not supported");
+        foreach ($this->getConfigurationCompositionApi() as $config_option => $value_option) {
+            if (!array_key_exists($config_option, $this->baseConfigurationApi)) {
+                throw new Exception("The option: '$config_option' is not valid");
             }
         }
     }
