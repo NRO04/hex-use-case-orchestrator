@@ -8,7 +8,7 @@ use Ro\HexUseCaseOrchestrator\Domain\Repository\CompositionApiRepository;
 class ConfigurationComposition implements CompositionApiRepository
 {
     private array $baseConfigurationApi = [
-        'composition-api' => 'required',
+        'handler-composition-api' => 'required',
         'handlers' => 'required',
         'logs' => 'required'
     ];
