@@ -27,8 +27,6 @@ class HandlersComposition implements CompositionApiRepository
 
     function getTypeOfDataInCompositionWithAlias(string $alias_name): array
     {
-        if (!$this->checkIfAliasExists($alias_name)) {
-        }
         return $this->reverseHandlersComposition["$alias_name"];
     }
 
