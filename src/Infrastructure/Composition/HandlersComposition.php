@@ -25,7 +25,7 @@ class HandlersComposition implements CompositionApiRepository
         return $this->handlerCompositionApi;
     }
 
-    function getTypeOfDataInCompositionWithAlias(string $alias_name): array
+    function getTypeOfDataInCompositionWithAlias(string $alias_name): string
     {
         return $this->reverseHandlersComposition["$alias_name"];
     }
