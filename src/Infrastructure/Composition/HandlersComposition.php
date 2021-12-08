@@ -25,6 +25,19 @@ class HandlersComposition implements CompositionApiRepository
         return $this->handlerCompositionApi;
     }
 
+    function getTypeOfDataInCompositionWithAlias(string $alias_name): array
+    {
+        if (!$this->checkIfAliasExists($alias_name)) {
+            throw new Exception("$alias_name not found in the handler-composition-api");
+        }
+        return $this->reverseHandlersComposition["$alias_name"];
+    }
+
+    function checkIfAliasExists(string $alias_name): bool
+    {
+        return array_key_exists($alias_name, $this->reverseHandlersComposition);
+    }
+
     /**
      * @throws Exception
      */
@@ -47,9 +60,9 @@ class HandlersComposition implements CompositionApiRepository
     /**
      * @throws Exception
      */
-    function checkStructureCompositionApi(string $property_to_validate): bool
+    function checkHandlerStructureComposition(string $property_to_validate): bool
     {
-        if (!array_key_exists("$property_to_validate", $this->reverseHandlersComposition)) {
+        if (!$this->checkIfAliasExists($property_to_validate)) {
             throw new Exception("$property_to_validate does not exits in handlers definition.");
         }
         return 1;
