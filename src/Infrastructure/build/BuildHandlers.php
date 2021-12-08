@@ -12,6 +12,16 @@ class BuildHandlers implements CompositionApiRepository
     private ValidateComposition $validateComposition;
     private array $handlers;
     private ConfigurationComposition $configuration;
+    private array $handlersSyntax = [
+        'handler' => [
+            'priority' => 1, // priority defines which class will be an instance and which will be a dependency
+            'dynamic_var' => 'handler_class', // dynamic_var is the name of the var which will save the class
+        ],
+        'dependency' => [
+            'priority' => 2,
+            'dynamic_var' => 'dependency_class',
+        ],
+    ];
 
     function __construct(array $configuration)
     {
@@ -44,12 +54,6 @@ class BuildHandlers implements CompositionApiRepository
         $dependency = '';
         $handler_class = '';
         foreach ($this->handlers as $handler_name => $handler) {
-
-            foreach () {
-
-            }
-
-
             $handlers_composited["$handler_name"] = $this->bind(
 
             //Creates a new instance of the dependency which defined in the config file. By default, this dependency it is call service
@@ -63,27 +67,6 @@ class BuildHandlers implements CompositionApiRepository
         }
         return $handlers_composited;
     }
-
-    /**
-     * @throws \Exception
-     */
-    function checkHandlerCompositionApi($composition_key, $key_to_validate): void
-    {
-        if (!$composition["$composition_key"]["$key_to_validate"]) {
-            throw (new \Exception("The $key_to_validate is not defined"));
-        }
-    }
-
-    function validateHandlerComposition(array $handlers_composition): void
-    {
-        $this->composition = $handlers_composition;
-
-        foreach ($this->composition as $composition_key => $composition_value) {
-            $this->checkComposition($value_handler, "service");
-        }
-    }
-
-
     /**
      * Binds a handler with a dependency, and returns a new instance of the handler with the dependency injected.
      * @throws ReflectionException
