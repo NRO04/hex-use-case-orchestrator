@@ -33,7 +33,7 @@ class ConfigurationComposition implements CompositionApiRepository
         $this->configurationApiComposition = $configuration_api_composition;
         $this->execute();
     }
-    
+
     /**
      * Gets the configuration composition from the configuration file
      */
@@ -41,13 +41,16 @@ class ConfigurationComposition implements CompositionApiRepository
     {
         return $this->configurationApiComposition;
     }
-
+    /**
+     * Gets keys from the configuration file
+     */
     function getConfigKeys(): array
     {
-        return array_keys($this->baseConfigurationApi);
+        return array_keys($this->configurationApiComposition);
     }
 
     /**
+     * Gets options from the configuration file
      * @throws Exception
      */
     function getConfigOption(string $key): array
@@ -59,11 +62,13 @@ class ConfigurationComposition implements CompositionApiRepository
     }
 
     /**
+     * Executes the validation for configuration composition
      * @throws Exception
      */
     function execute(): void
     {
         foreach ($this->getConfigurationCompositionApi() as $config_option => $value_option) {
+            // Validates that all the required options are present in the configuration file
             if (!array_key_exists($config_option, $this->baseConfigurationApi)) {
                 throw new Exception("The option: '$config_option' is not a valid option, please check the config file");
             }
