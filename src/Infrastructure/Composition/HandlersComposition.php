@@ -67,7 +67,7 @@ class HandlersComposition implements CompositionApiRepository
     function reverseStructureOfTheComposition(): void
     {
         foreach ($this->getHandlerCompositionApi() as $key_composition => $handlerComposition) {
-            $this->reverseHandlersComposition[$handlerComposition["$key_composition"]] = $key_composition;
+            $this->reverseHandlersComposition["$handlerComposition"] = $key_composition;
         }
     }
 
