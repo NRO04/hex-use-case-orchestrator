@@ -19,9 +19,9 @@ class HandlersComposition implements CompositionApiRepository
      */
     function __construct(array $configuration)
     {
-        $this->execute();
         $this->handlerCompositionApi = $configuration['handler-composition-api'];
         $this->reverseStructureOfTheComposition();
+        $this->execute();
     }
 
     function getHandlerCompositionApi(): array
