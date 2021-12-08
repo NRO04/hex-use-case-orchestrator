@@ -9,12 +9,9 @@ class ValidateComposition implements CompositionApiRepository
 
     private array $classes;
 
-    function __construct(array $configuration)
+    function __construct(array $compositions)
     {
-        $this->classes = [
-            new ConfigurationComposition($configuration),
-            new HandlersComposition($configuration)
-        ];
+        $this->classes = $compositions;
     }
 
     public function execute(): void

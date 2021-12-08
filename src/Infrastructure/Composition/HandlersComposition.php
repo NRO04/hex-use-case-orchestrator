@@ -14,8 +14,12 @@ class HandlersComposition implements CompositionApiRepository
     private array $handlerCompositionApi;
     private array $reverseHandlersComposition; // reverse of handler composition api
 
+    /**
+     * @throws Exception
+     */
     function __construct(array $configuration)
     {
+        $this->execute();
         $this->handlerCompositionApi = $configuration['handler-composition-api'];
         $this->reverseStructureOfTheComposition();
     }
@@ -57,11 +61,10 @@ class HandlersComposition implements CompositionApiRepository
     /**
      * @throws Exception
      */
-    function checkHandlerStructureComposition(string $property_to_validate): bool
+    function checkHandlerStructureComposition(string $property_to_validate): void
     {
         if (!$this->checkIfAliasExists($property_to_validate)) {
             throw new Exception("$property_to_validate is not nowhere to be found as an alias name in the handler-composition-api");
         }
-        return 1;
     }
 }
