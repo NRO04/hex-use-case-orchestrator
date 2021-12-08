@@ -25,10 +25,15 @@ class ConfigurationComposition implements CompositionApiRepository
      */
     private array $configurationApiComposition = [];
 
+    /**
+     * @throws Exception
+     */
     function __construct(array $configuration_api_composition)
     {
         $this->configurationApiComposition = $configuration_api_composition;
+        $this->execute();
     }
+    
     /**
      * Gets the configuration composition from the configuration file
      */
