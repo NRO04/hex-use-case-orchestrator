@@ -46,7 +46,7 @@ class HandlersComposition implements CompositionApiRepository
      */
     function checkIfHandlersAreSet(): void
     {
-        if (!isset($this->handlers)) {
+        if (empty($this->handlers)) {
             throw new Exception("There are not Handlers set, check handlers section in the configuration file use-case-orchestrator.php");
         }
     }
