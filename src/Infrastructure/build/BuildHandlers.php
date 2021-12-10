@@ -30,12 +30,12 @@ class BuildHandlers implements CompositionApiRepository
      */
     function __construct(array $configuration)
     {
-        $this->handlersComposition = new HandlersComposition($configuration);
         $this->configurationComposition = new ConfigurationComposition($configuration);
+        $this->handlersComposition = new HandlersComposition($configuration);
 
         $compositions = [
-            $this->handlersComposition,
-            $this->configurationComposition
+            $this->configurationComposition,
+            $this->handlersComposition
         ];
 
         $this->validateComposition = new ValidateComposition($compositions);
