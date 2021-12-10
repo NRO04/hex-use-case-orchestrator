@@ -31,7 +31,7 @@ class ConfigurationComposition implements CompositionApiRepository
     function __construct(array $configuration_api_composition)
     {
         $this->configurationApiComposition = $configuration_api_composition;
-        $this->execute();
+        
     }
 
     /**
