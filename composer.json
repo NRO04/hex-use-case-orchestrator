@@ -21,7 +21,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": "^7.4|^8.0",
     "ro/dto-php": "^1.0",
     "illuminate/support": "^8.73",
     "illuminate/contracts": "^8.73"
