@@ -24,7 +24,6 @@ class HandlersComposition implements CompositionApiRepository
         $this->handlers = $configuration['handlers'];
         $this->checkIfHandlersAreSet();
         $this->reverseStructureOfTheComposition();
-        $this->execute();
     }
 
     function getHandlerCompositionApi(): array
@@ -59,7 +58,7 @@ class HandlersComposition implements CompositionApiRepository
     {
         foreach ($this->getHandlerCompositionApi() as $key => $handlerComposition) {
             if (!array_key_exists("$key", $this->baseHandlerComposition)) {
-                throw new Exception("$key is not a valid option for handler-composition-api");
+                throw new Exception("$key is not a valid option for handler-composition-api, please check the configuration file use-case-orchestrator.php");
             }
         }
     }
