@@ -42,7 +42,7 @@ class UseCaseHandlerCollection
 
     function checkIfHandlerExists(string $handlerName): bool
     {
-        return isset($this->handlers[$handlerName]);
+        return array_key_exists($handlerName, $this->handlers);
     }
 
 }
