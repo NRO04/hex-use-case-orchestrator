@@ -24,9 +24,14 @@ class UseCaseOrchestrator implements UseCaseOrchestratorRepository
         $this->useCaseHandlerCollection->add($handlers);
     }
 
-    function get(string $handlerName): UseCaseHandlerSchema
+    function get(string $handlerName): ?UseCaseHandlerSchema
     {
         return $this->useCaseHandlerCollection->getHandler($handlerName);
+    }
+
+    function getsHandlersNamesList(): array
+    {
+        return array_keys($this->useCaseHandlerCollection->handlers);
     }
 
     function getHandlers(): array
