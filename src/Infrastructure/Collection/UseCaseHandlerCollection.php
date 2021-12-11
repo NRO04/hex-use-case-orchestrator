@@ -19,15 +19,14 @@ class UseCaseHandlerCollection
 
     /**
      * @param string $handlerName
-     * @return UseCaseHandlerSchema
      */
     function getHandler(string $handlerName): UseCaseHandlerSchema
     {
         if (!$this->checkIfHandlerExists($handlerName)) {
 
             $message = "Handler {$handlerName} not found please check your use case configuration,
-             config/Handlers.php 
-             and Verify that the h$handlerName is registered in the use case handlers path";
+             config/use-case-handlers.php 
+             and Verify that the $handlerName is registered in the handlers section";
             $this->logs->write($message);
             throw new UseCaseHandlerNotFound($message);
         }
