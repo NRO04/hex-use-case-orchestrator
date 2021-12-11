@@ -20,7 +20,7 @@ class UseCaseHandlerCollection
     /**
      * @param string $handlerName
      */
-    function getHandler(string $handlerName): UseCaseHandlerSchema
+    function getHandler(string $handlerName): ?UseCaseHandlerSchema
     {
         if (!$this->checkIfHandlerExists($handlerName)) {
 
