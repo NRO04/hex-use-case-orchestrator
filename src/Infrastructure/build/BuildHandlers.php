@@ -72,7 +72,7 @@ class BuildHandlers implements CompositionApiRepository
                 $type_data_composition = $this->handlersComposition->getTypeOfDataInCompositionWithAlias($alias);
 
                 // validate which class must be used to build the handler using the priority.
-                if ($this->handlersSyntax["$type_data_composition"]["priority"] == $class_priority) {
+                if ($this->handlersSyntax["$type_data_composition"]["priority"] === $class_priority) {
                     // if the priority is the same, then get the name of dynamic var
                     $dynamic_var = $this->handlersSyntax["$type_data_composition"]["dynamic_var"];
                     // overwrite the dynamic var with its value to assign the class.
@@ -82,6 +82,7 @@ class BuildHandlers implements CompositionApiRepository
                 // increment the priority to the next iteration
                 $class_priority++;
             }
+            $class_priority = 1; // reset the priority to the first iteration
 
             $handlers_composited["$handler_name"] = $this->bind(
             /*Creates a new instance of the dependency which defined in the config file.
