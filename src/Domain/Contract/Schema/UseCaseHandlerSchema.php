@@ -8,7 +8,7 @@ interface UseCaseHandlerSchema
 {
     function getUseCase(string $useCaseName): UseCaseRepository;
 
-    function getUseCaseList(string $useCaseName): array;
+    function getUseCaseList(): array;
 
     function checkIfUseCaseExists(string $useCaseName): bool;
 
