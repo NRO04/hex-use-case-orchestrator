@@ -11,6 +11,9 @@ interface UseCaseOrchestratorRepository
     function getHandlers(): array;
 
     /* Get a specific handler by its name */
-    function get(string $handlerName): UseCaseHandlerSchema;
+    function get(string $handlerName): ?UseCaseHandlerSchema;
+
+    /* Get the names of registered handlers*/
+    function getsHandlersNamesList(): array;
 
 }
