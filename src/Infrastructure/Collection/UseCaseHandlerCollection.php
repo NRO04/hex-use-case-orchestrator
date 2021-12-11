@@ -24,9 +24,8 @@ class UseCaseHandlerCollection
     {
         if (!$this->checkIfHandlerExists($handlerName)) {
 
-            $message = "Handler {$handlerName} not found please check your use case configuration,
-             config/use-case-handlers.php 
-             and Verify that the $handlerName is registered in the handlers section";
+            $message = "Handler: << {$handlerName} >> was not found, please check your use case configuration in
+             config/use-case-handlers.php and verify that the << $handlerName >> is registered in the handlers section";
             $this->logs->write($message);
             throw new UseCaseHandlerNotFound($message);
         }
