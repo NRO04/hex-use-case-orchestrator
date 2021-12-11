@@ -10,6 +10,8 @@ interface UseCaseHandlerSchema
 
     function getUseCaseList(): array;
 
+    function getUseCaseNamesList(): array;
+
     function checkIfUseCaseExists(string $useCaseName): bool;
 
 }
