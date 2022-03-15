@@ -29,9 +29,14 @@ return [
         It is important to know that the handler property value must be defined in the handler section.
          And this one must be the same as the key of the handler in the handlers section.
         */
-        'handler' => '@handler',
-        //dependency defines how will be call it when the use case will be defined in the service section.
-        'dependency' => '@service',
+        'resolve' => [
+
+            'alias' => [
+                'handler' => '@handler',
+                'dependencies' => '@services',  //dependency defines how will be call it when the use case will be defined in the service section.
+                'use-cases' => '@useCases'
+            ]
+        ]
     ],
     'logs' => [
         'path' => 'logs/use-case-handlers.log',
