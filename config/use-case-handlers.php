@@ -16,8 +16,19 @@ return [
         /*
          Example:
         'put-here-handler-name' =>[
-            '@handler' => UserUseCaseHandler::class, //key @handler is defined in handler-composition-api.
-            '@service' => UserService::class, //key @service is defined in handler-composition-api.
+            '@handler' => UserUseCaseHandler::class,
+            '@services' => [
+                'serviceA' => ServiceA::class,
+                'serviceB' => ServiceB::class
+            ],
+            '@useCases' => [
+                'useCaseA' => UseCaseA::class,
+                'useCaseB' => UseCaseB::class
+            ],
+            'compose' => [
+                'serviceA' => 'useCaseA'
+                'serviceB' => 'useCaseB'
+            ]
         ],
          */
     ],
