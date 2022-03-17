@@ -9,7 +9,9 @@ class HandlersComposition implements CompositionApiRepository
 {
     private array $baseHandlerComposition = [
         'handler' => 'required',
-        'dependency' => 'required'
+        'dependencies' => 'required',
+        'use-cases' => 'required',
+        'compose' => 'required'
     ];
     private array $handlerCompositionApi;
     private array $reverseHandlersComposition; // reverse of handler composition api
@@ -29,6 +31,11 @@ class HandlersComposition implements CompositionApiRepository
     function getHandlerCompositionApi(): array
     {
         return $this->handlerCompositionApi;
+    }
+
+    function getBaseCompositionOfHandler(): array
+    {
+        return $this->baseHandlerComposition;
     }
 
     function getTypeOfDataInCompositionWithAlias(string $alias_name): string
@@ -78,5 +85,21 @@ class HandlersComposition implements CompositionApiRepository
         if (!$this->checkIfAliasExists($property_to_validate)) {
             throw new Exception("$property_to_validate is not nowhere to be found as an alias name in the handler-composition-api");
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    function getHandlerCompositionFrom(string $source)
+    {
+
+        $compositions = [
+            'configuration-file' => $this->getHandlerCompositionApi(),
+            'base-composition' => $this->getBaseCompositionOfHandler()
+        ];
+
+        if (!array_key_exists($source, $compositions)) throw new Exception("Unable to find the source: $source in the compositions records");
+
+        return $compositions[$source];
     }
 }
