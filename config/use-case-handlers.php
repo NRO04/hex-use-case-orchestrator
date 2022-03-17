@@ -45,7 +45,8 @@ return [
             'alias' => [
                 'handler' => '@handler',
                 'dependencies' => '@services',  //dependency defines how will be call it when the use case will be defined in the service section.
-                'use-cases' => '@useCases'
+                'use-cases' => '@useCases',
+                'compose' => '@compose'
             ]
         ]
     ],
