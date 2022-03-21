@@ -8,10 +8,10 @@ use Ro\HexUseCaseOrchestrator\Domain\Repository\CompositionApiRepository;
 class HandlersComposition implements CompositionApiRepository
 {
     private array $baseHandlerComposition = [
-        'handler' => 'required',
-        'dependencies' => 'required',
-        'use-cases' => 'required',
-        'compose' => 'required'
+        'resolve' => [
+
+            'alias' => ["dependencies", "use-case", "handler", "compose"]
+        ]
     ];
     private array $handlerCompositionApi;
     private array $reverseHandlersComposition; // reverse of handler composition api
