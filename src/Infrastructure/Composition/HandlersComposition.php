@@ -172,4 +172,34 @@ class HandlersComposition implements CompositionApiRepository
         }
     }
 
+    /**
+     * Searches and extracts an element from the array specified by the key
+     * @param string $key The key to be extracted
+     * @param array $data The array to be searched
+     * @return array The extracted element
+     */
+    function extractor(string $key, array $data): array
+    {
+        $result = [];
+
+        while (!empty($data)) {
+
+            $key_data = array_key_last($data);
+            $pop_item_data = $data[$key_data];
+
+            array_pop($data);
+
+            if ($key_data === $key) {
+                $result = $pop_item_data;
+                break;
+            }
+
+            if (!$this->isSequentialArray($pop_item_data)) {
+
+                $data = $data + $pop_item_data; // Merges the two arrays using array operator (union).
+            }
+        }
+        return $result;
+    }
+
 }
