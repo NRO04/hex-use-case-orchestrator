@@ -89,11 +89,15 @@ class HandlersComposition implements CompositionApiRepository
     }
 
     /**
+     * @param string $source
+     * @return array
      * @throws Exception
+     *   Gets array from a specific source, helps to obtain any composition recorded in the compositions records
      */
-    function getHandlerCompositionFrom(string $source)
+    function getHandlerCompositionFrom(string $source): array
     {
 
+        // Composition Records
         $compositions = [
             'configuration-file' => $this->getHandlerCompositionApi(),
             'base-composition' => $this->getBaseCompositionOfHandler()
