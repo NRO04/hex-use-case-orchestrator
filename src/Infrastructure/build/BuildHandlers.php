@@ -14,6 +14,7 @@ class BuildHandlers implements CompositionApiRepository
     private array $handlers;
     private HandlersComposition $handlersComposition;
     private ConfigurationComposition $configurationComposition;
+    private BuildClass $buildClass;
     private array $handlersSyntax = [
         'handler' => [
             'priority' => 1, // priority defines which class will be an instance and which will be a dependency
@@ -32,6 +33,7 @@ class BuildHandlers implements CompositionApiRepository
     {
         $this->configurationComposition = new ConfigurationComposition($configuration);
         $this->handlersComposition = new HandlersComposition($configuration);
+        $this->buildClass = new BuildClass();
 
         $compositions = [
             $this->configurationComposition,
@@ -84,38 +86,17 @@ class BuildHandlers implements CompositionApiRepository
             }
             $class_priority = 1; // reset the priority to the first iteration
 
-            $handlers_composited["$handler_name"] = $this->bind(
+            $handlers_composited["$handler_name"] = $this->buildClass->bind(
             /*Creates a new instance of the dependency which defined in the config file.
              By default, this dependency it is call service in handler-composition-api section.
              Each handler is needs a dependency to be used.
              Handler's composition require a dependency and the provided service works like one.
              it will be a new instance of the service
             */
-                $this->make($dependency_class),
+                $this->buildClass->make($dependency_class),
                 $handler_class
             );
         }
         return $handlers_composited;
     }
-
-    /**
-     * Binds a handler with a dependency, and returns a new instance of the handler with the dependency injected.
-     * @throws ReflectionException
-     */
-    function bind(object $dependency, string $handler): object
-    {
-        $instance = new \ReflectionClass($handler);
-        return $instance->newInstance($dependency);
-    }
-
-    /**
-     * Create new instance of provided class using reflection
-     * @throws ReflectionException
-     */
-    function make($abstract): object
-    {
-        $instance = new \ReflectionClass($abstract);
-        return $instance->newInstance();
-    }
-
 }
