@@ -83,6 +83,11 @@ class BuildHandlers implements CompositionApiRepository
 
             foreach ($data_of_handler[$handlers_syntax['compose']] as $dependency => $class) {
 
+
+                $this->handlers_syntax_compositions['use-cases']->validateKeyInComposition($class, $use_cases, $handler_name);
+
+                $this->handlers_syntax_compositions['dependencies']->validateKeyInComposition($dependency, $dependencies, $handler_name);
+
                 $handlers_built[$handler_name] = $this->buildClass->bind(
                     $this->buildClass->make($dependencies[$dependency]), $use_cases[$class]
                 );
