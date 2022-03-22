@@ -4,27 +4,25 @@ namespace Ro\HexUseCaseOrchestrator\Infrastructure\build;
 
 use ReflectionException;
 use Ro\HexUseCaseOrchestrator\Domain\Repository\CompositionApiRepository;
+use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\ComposeComposition;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\ConfigurationComposition;
+use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\DependenciesComposition;
+use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\HandlerComposition;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\HandlersComposition;
+use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\UseCaseComposition;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Composition\ValidateComposition;
 
 class BuildHandlers implements CompositionApiRepository
 {
     private ValidateComposition $validateComposition;
-    private array $handlers;
+
     private HandlersComposition $handlersComposition;
+
     private ConfigurationComposition $configurationComposition;
+
     private BuildClass $buildClass;
-    private array $handlersSyntax = [
-        'handler' => [
-            'priority' => 1, // priority defines which class will be an instance and which will be a dependency
-            'dynamic_var' => 'handler_class', // dynamic_var is the name of the var which will save the class
-        ],
-        'dependency' => [
-            'priority' => 2,
-            'dynamic_var' => 'dependency_class',
-        ],
-    ];
+
+    private array $handlers_syntax_compositions = [];
 
     /**
      * @throws \Exception
@@ -32,7 +30,9 @@ class BuildHandlers implements CompositionApiRepository
     function __construct(array $configuration)
     {
         $this->configurationComposition = new ConfigurationComposition($configuration);
+
         $this->handlersComposition = new HandlersComposition($configuration);
+
         $this->buildClass = new BuildClass();
 
         $compositions = [
@@ -40,7 +40,15 @@ class BuildHandlers implements CompositionApiRepository
             $this->handlersComposition
         ];
 
+        $this->handlers_syntax_compositions = [
+            'handler' => new HandlerComposition(),
+            'dependencies' => new DependenciesComposition(),
+            'use-cases' => new UseCaseComposition(),
+            'compose' => new ComposeComposition()
+        ];
+
         $this->validateComposition = new ValidateComposition($compositions);
+
         $this->execute();
     }
 
@@ -50,7 +58,6 @@ class BuildHandlers implements CompositionApiRepository
     function execute(): void
     {
         $this->validateComposition->execute();
-        $this->handlers = $this->configurationComposition->getConfigOption('handlers');
     }
 
     /**
@@ -60,43 +67,50 @@ class BuildHandlers implements CompositionApiRepository
      */
     function compose(): array
     {
-        $handlers_composited = array();
-        $dependency_class = ''; // the class which will be a dependency
-        $handler_class = ''; // the class which will be an instance
-        $class_priority = 1; // priority defines which class must be analyzed first.
+        $this->validateCompositionOfHandlersFromConfigFile();
 
-        // iterate over the handlers defined in the configuration file in section 'handlers'
-        foreach ($this->handlers as $handler_name => $handler_composition) {
-            // iterate over the handler's composition [handler, dependency]
-            foreach ($handler_composition as $alias => $class) {
-                $this->handlersComposition->checkHandlerStructureComposition($alias);
-                // resolve if is a dependency or a handler
-                $type_data_composition = $this->handlersComposition->getTypeOfDataInCompositionWithAlias($alias);
-
-                // validate which class must be used to build the handler using the priority.
-                if ($this->handlersSyntax["$type_data_composition"]["priority"] === $class_priority) {
-                    // if the priority is the same, then get the name of dynamic var
-                    $dynamic_var = $this->handlersSyntax["$type_data_composition"]["dynamic_var"];
-                    // overwrite the dynamic var with its value to assign the class.
-                    //overwrite is necessary because using its value, the class will be an instance_class or a dependency_class
-                    $$dynamic_var = $class;
-                }
-                // increment the priority to the next iteration
-                $class_priority++;
-            }
-            $class_priority = 1; // reset the priority to the first iteration
-
-            $handlers_composited["$handler_name"] = $this->buildClass->bind(
-            /*Creates a new instance of the dependency which defined in the config file.
-             By default, this dependency it is call service in handler-composition-api section.
-             Each handler is needs a dependency to be used.
-             Handler's composition require a dependency and the provided service works like one.
-             it will be a new instance of the service
-            */
-                $this->buildClass->make($dependency_class),
-                $handler_class
-            );
-        }
-        return $handlers_composited;
     }
+
+    /**
+     * @throws \Exception
+     */
+    function validateCompositionOfHandlersFromConfigFile(): void
+    {
+
+        $handlers_syntax = $this->handlersComposition->getHandlersSyntax();
+
+        $aliases_of_handlers_composition = $this->handlersComposition->reverseStructureOfTheComposition($handlers_syntax);
+
+        $reverse_handler_syntax = $aliases_of_handlers_composition;
+
+        $handlers = $this->getHandlers();
+
+        while (!empty($handlers)) {
+
+            $handler_name = array_key_last($handlers);
+
+            $data_of_handler = $handlers[$handler_name];
+
+            array_pop($handlers);
+
+            foreach ($data_of_handler as $alias => $value) {
+
+                $this->handlersComposition->validateKeyInComposition($alias, $aliases_of_handlers_composition);
+
+                $key_handler_syntax = $reverse_handler_syntax[$alias];
+
+                $this->handlers_syntax_compositions[$key_handler_syntax]->execute($value);
+
+            }
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    function getHandlers(): array
+    {
+        return $this->configurationComposition->getConfigOption('handlers');
+    }
+
 }

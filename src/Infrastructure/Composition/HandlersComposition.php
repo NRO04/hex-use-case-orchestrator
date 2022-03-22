@@ -25,7 +25,6 @@ class HandlersComposition implements CompositionApiRepository
         $this->handlerCompositionApi = $configuration['handler-composition-api'];
         $this->handlers = $configuration['handlers'];
         $this->checkIfHandlersAreSet();
-        $this->reverseStructureOfTheComposition();
     }
 
     function getHandlerCompositionApi(): array
@@ -38,15 +37,11 @@ class HandlersComposition implements CompositionApiRepository
         return $this->baseHandlerComposition;
     }
 
-    function getTypeOfDataInCompositionWithAlias(string $alias_name): string
+    function getHandlersSyntax(): array
     {
-        return $this->reverseHandlersComposition["$alias_name"];
+        return $this->extractor("alias", $this->handlerCompositionApi);
     }
 
-    function checkIfAliasExists(string $alias_name): bool
-    {
-        return array_key_exists($alias_name, $this->reverseHandlersComposition);
-    }
 
     /**
      * @throws Exception
@@ -71,21 +66,13 @@ class HandlersComposition implements CompositionApiRepository
         $this->validateComposition($base_composition, $file_composition);
     }
 
-    function reverseStructureOfTheComposition(): void
+    function reverseStructureOfTheComposition(array $data_to_reverse): array
     {
-        foreach ($this->getHandlerCompositionApi() as $key_composition => $handlerComposition) {
-            $this->reverseHandlersComposition["$handlerComposition"] = $key_composition;
+        $reverse_composition = [];
+        foreach ($data_to_reverse as $key_composition => $handlerComposition) {
+            $reverse_composition["$handlerComposition"] = $key_composition;
         }
-    }
-
-    /**
-     * @throws Exception
-     */
-    function checkHandlerStructureComposition(string $property_to_validate): void
-    {
-        if (!$this->checkIfAliasExists($property_to_validate)) {
-            throw new Exception("$property_to_validate is not nowhere to be found as an alias name in the handler-composition-api");
-        }
+        return $reverse_composition;
     }
 
     /**
