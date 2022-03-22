@@ -69,6 +69,31 @@ class BuildHandlers implements CompositionApiRepository
     {
         $this->validateCompositionOfHandlersFromConfigFile();
 
+        $handlers_built = [];
+
+        $handlers_syntax = $this->handlersComposition->getHandlersSyntax();
+
+        $handlers = $this->getHandlers();
+
+        foreach ($handlers as $handler_name => $data_of_handler) {
+
+            $use_cases = $data_of_handler[$handler_name][$handlers_syntax['use-cases']];
+
+            $dependencies = $data_of_handler[$handler_name][$handlers_syntax['dependencies']];
+
+
+            foreach ($data_of_handler[$handler_name][$handlers_syntax['compose']] as $dependency => $class) {
+
+                $handlers_built[$handler_name] = $this->buildClass->bind(
+                    $this->buildClass->make($dependencies[$dependency]), $use_cases[$class]
+                );
+
+            }
+
+        }
+
+
+        return $handlers_built;
     }
 
     /**
