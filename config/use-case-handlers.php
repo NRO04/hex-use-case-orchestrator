@@ -25,7 +25,7 @@ return [
                 'useCaseA' => UseCaseA::class,
                 'useCaseB' => UseCaseB::class
             ],
-            'compose' => [
+            '@compose' => [
                 'serviceA' => 'useCaseA'
                 'serviceB' => 'useCaseB'
             ]
