@@ -16,18 +16,18 @@ return [
         /*
          Example:
         'put-here-handler-name' =>[
-            '@handler' => UserUseCaseHandler::class,
-            '@services' => [
-                'serviceA' => ServiceA::class,
-                'serviceB' => ServiceB::class
+            '@handler' => UserUseCaseHandler::class,    // The handler class.
+            '@services' => [                            // Records of services to inject in the uses cases.
+                'service-a-ref' => ServiceA::class,     // service-a-ref is the key of the service to inject.
+                'service-b-ref' => ServiceB::class      // service-b-ref is the key of the service to inject.
             ],
-            '@useCases' => [
-                'useCaseA' => UseCaseA::class,
-                'useCaseB' => UseCaseB::class
+            '@useCases' => [                            // Records of use cases to compose.
+                'use-case-a-ref' => UseCaseA::class,    // use-case-a-ref is the key of the use case to compose.
+                'use-case-b-ref' => UseCaseB::class,    // use-case-b-ref is the key of the use case to compose.
             ],
-            '@compose' => [
-                'serviceA' => 'useCaseA'
-                'serviceB' => 'useCaseB'
+            '@compose' => [                             // Records of use cases to inject in the handler.
+                'use-case-name' => [ 'service-a-ref' => 'use-case-a-ref'],  // use-case-name is the key of the use case to inject in the handler.
+                'use-case-name-2' => [ 'service-b-ref' => 'use-case-b-ref'], // use-case-name-2 is the key of the use case to inject in the handler.
             ]
         ],
          */
