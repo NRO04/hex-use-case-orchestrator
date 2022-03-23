@@ -77,22 +77,34 @@ class BuildHandlers implements CompositionApiRepository
 
         foreach ($handlers as $handler_name => $data_of_handler) {
 
+            $use_cases_built = [];
+
+            $handler_class = $data_of_handler[$handlers_syntax['handler']];
+
             $use_cases = $data_of_handler[$handlers_syntax['use-cases']];
 
             $dependencies = $data_of_handler[$handlers_syntax['dependencies']];
 
-            foreach ($data_of_handler[$handlers_syntax['compose']] as $dependency => $class) {
+            foreach ($data_of_handler[$handlers_syntax['compose']] as $use_case_name => $data_to_compose) {
 
 
-                $this->handlers_syntax_compositions['use-cases']->validateKeyInComposition($class, $use_cases, $handler_name);
+                foreach ($data_to_compose as $dependency_ref => $use_case_ref) {
 
-                $this->handlers_syntax_compositions['dependencies']->validateKeyInComposition($dependency, $dependencies, $handler_name);
+                    $this->handlers_syntax_compositions['use-cases']->validateKeyInComposition($use_case_ref, $use_cases, $handler_name);
 
-                $handlers_built[$handler_name] = $this->buildClass->bind(
-                    $this->buildClass->make($dependencies[$dependency]), $use_cases[$class]
-                );
+                    $this->handlers_syntax_compositions['dependencies']->validateKeyInComposition($dependency_ref, $dependencies, $handler_name);
+
+                    $use_cases_built[$use_case_name] = $this->buildClass->bind(
+                        $this->buildClass->make($dependencies[$dependency_ref]), $use_cases[$use_case_ref]
+                    );
+
+                }
 
             }
+
+            $handlers_built[$handler_name] = $this->buildClass->compose(
+                $use_cases_built, $handler_class
+            );
 
         }
 

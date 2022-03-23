@@ -20,6 +20,16 @@ class BuildClass
     }
 
     /**
+     * @throws \ReflectionException
+     */
+    function compose($param, $class): object
+    {
+        $instance = new \ReflectionClass($class);
+        return $instance->newInstance($param);
+    }
+
+
+    /**
      * Create new instance of provided class using reflection
      * @throws \ReflectionException
      */
