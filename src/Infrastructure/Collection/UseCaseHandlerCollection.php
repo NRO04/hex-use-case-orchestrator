@@ -44,4 +44,14 @@ class UseCaseHandlerCollection
         return array_key_exists($handlerName, $this->handlers);
     }
 
+    function pushHandler(string $handlerName, UseCaseHandlerSchema $handler): void
+    {
+        $this->handlers[$handlerName] = $handler;
+    }
+
+    function pushItems(array $handlers): void
+    {
+        $this->handlers = array_merge($this->handlers, $handlers);
+    }
+
 }

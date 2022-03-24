@@ -38,4 +38,14 @@ class UseCaseOrchestrator implements UseCaseOrchestratorRepository
     {
         return $this->useCaseHandlerCollection->handlers;
     }
+
+    function addHandler(string $handlerName, UseCaseHandlerSchema $handlerClass): void
+    {
+        $this->useCaseHandlerCollection->pushHandler($handlerName, $handlerClass);
+    }
+
+    function addMultipleHandlers(array $handlers): void
+    {
+        $this->useCaseHandlerCollection->pushItems($handlers);
+    }
 }

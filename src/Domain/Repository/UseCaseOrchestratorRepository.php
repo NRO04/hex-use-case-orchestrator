@@ -16,4 +16,10 @@ interface UseCaseOrchestratorRepository
     /* Get the names of registered handlers*/
     function getsHandlersNamesList(): array;
 
+    /* Add a new handler to the handlersCollection */
+    function addHandler(string $handlerName, UseCaseHandlerSchema $handlerClass): void;
+
+    /* Add new handlers to the handlersCollection*/
+    function addMultipleHandlers(array $handlers): void;
+
 }
