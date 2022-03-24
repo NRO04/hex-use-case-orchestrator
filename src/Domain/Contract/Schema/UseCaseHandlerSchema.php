@@ -14,4 +14,9 @@ interface UseCaseHandlerSchema
 
     function checkIfUseCaseExists(string $useCaseName): bool;
 
+    function addUseCase(string $useCaseName, string $useCaseClass): void;
+
+    function removeUseCase(string $useCaseName): void;
+
+    function addMultipleUseCase(array $useCaseList): void;
 }
