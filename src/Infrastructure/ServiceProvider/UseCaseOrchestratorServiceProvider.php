@@ -4,6 +4,7 @@ namespace Ro\HexUseCaseOrchestrator\Infrastructure\ServiceProvider;
 
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Ro\HexUseCaseOrchestrator\Infrastructure\build\BuildHandlers;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Orchestrator\UseCaseOrchestrator;
 
@@ -11,7 +12,7 @@ define('HEX_USE_CASE_HANDLERS_PATH', __DIR__ . '/../../../app/UseCases/Handlers.
 define('HEX_USE_CASE_HANDLER_CONFIG_PATH', __DIR__ . '/../../../config/use-case-handlers.php');
 define('HEX_USE_CASE_HANDLER_LOGS_PATH', __DIR__ . '/../../../logs/use-case-handlers.log');
 
-class UseCaseOrchestratorServiceProvider extends ServiceProvider
+class UseCaseOrchestratorServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register()
     {
@@ -48,6 +49,20 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider
             ], 'use-case-handlers-config');
         }
     }
+
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides(): array
+    {
+        return [
+            UseCaseOrchestrator::class,
+        ];
+    }
+
 
     /**
      * Get the path to the use case handler config file.
