@@ -10,7 +10,7 @@ class HandlersComposition implements CompositionApiRepository
     private array $baseHandlerComposition = [
         'resolve' => [
 
-            'alias' => ["dependencies", "use-case", "handler", "compose"]
+            'alias' => ["dependencies", "use-cases", "handler", "compose"]
         ]
     ];
     private array $handlerCompositionApi;
