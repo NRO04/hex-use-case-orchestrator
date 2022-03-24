@@ -5,6 +5,8 @@ namespace Ro\HexUseCaseOrchestrator\Infrastructure\ServiceProvider;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Ro\DtoPhp\Domain\Services\DtoMappingService;
+use Ro\DtoPhp\Infrastructure\DTO;
 use Ro\HexUseCaseOrchestrator\Infrastructure\build\BuildHandlers;
 use Ro\HexUseCaseOrchestrator\Infrastructure\Orchestrator\UseCaseOrchestrator;
 
@@ -14,6 +16,9 @@ define('HEX_USE_CASE_HANDLER_LOGS_PATH', __DIR__ . '/../../../logs/use-case-hand
 
 class UseCaseOrchestratorServiceProvider extends ServiceProvider implements DeferrableProvider
 {
+
+    const ORCHESTRATOR_VERSION = '2.5.2';
+
     public function register()
     {
         // Merge Use Case Handlers config in to app config
@@ -34,6 +39,11 @@ class UseCaseOrchestratorServiceProvider extends ServiceProvider implements Defe
                 );
             }
         );
+
+        $this->app->singleton(DTO::class, function ($app) {
+            return new DTO(new DtoMappingService(["ORCHESTRATOR-VERSION" => self::ORCHESTRATOR_VERSION]));
+        });
+
     }
 
     public function boot()
