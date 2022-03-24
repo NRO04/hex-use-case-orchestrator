@@ -54,6 +54,7 @@ return [
             ]
         ]
     ],
+    'allow-empty-handlers' => false,
     'logs' => [
         'path' => 'logs/use-case-handlers.log',
     ]

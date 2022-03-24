@@ -17,6 +17,7 @@ class ConfigurationComposition implements CompositionApiRepository
     private array $baseConfigurationApi = [
         'handler-composition-api' => 'required',
         'handlers' => 'required',
+        'allow-empty-handlers' => 'required',
         'logs' => 'required'
     ];
 
