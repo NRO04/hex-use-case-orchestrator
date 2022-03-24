@@ -16,6 +16,7 @@ class HandlersComposition implements CompositionApiRepository
     private array $handlerCompositionApi;
     private array $reverseHandlersComposition; // reverse of handler composition api
     private array $handlers;
+    private array $configuration_file_data;
 
     /**
      * @throws Exception
@@ -24,7 +25,7 @@ class HandlersComposition implements CompositionApiRepository
     {
         $this->handlerCompositionApi = $configuration['handler-composition-api'];
         $this->handlers = $configuration['handlers'];
-        $this->checkIfHandlersAreSet();
+        $this->configuration_file_data = $configuration;
     }
 
     function getHandlerCompositionApi(): array
@@ -59,11 +60,16 @@ class HandlersComposition implements CompositionApiRepository
     function execute(): void
     {
 
-        $base_composition = $this->getHandlerCompositionFrom('base-composition');
+        if (!$this->configuration_file_data['allow_empty-handlers']) {
 
-        $file_composition = $this->getHandlerCompositionFrom('configuration-file');
+            $this->checkIfHandlersAreSet();
 
-        $this->validateComposition($base_composition, $file_composition);
+            $base_composition = $this->getHandlerCompositionFrom('base-composition');
+
+            $file_composition = $this->getHandlerCompositionFrom('configuration-file');
+
+            $this->validateComposition($base_composition, $file_composition);
+        }
     }
 
     function reverseStructureOfTheComposition(array $data_to_reverse): array
