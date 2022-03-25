@@ -17,7 +17,7 @@ define('HEX_USE_CASE_HANDLER_LOGS_PATH', __DIR__ . '/../../../logs/use-case-hand
 class UseCaseOrchestratorServiceProvider extends ServiceProvider implements DeferrableProvider
 {
 
-    const ORCHESTRATOR_VERSION = '2.5.2';
+    const ORCHESTRATOR_VERSION = '2.5.3';
 
     public function register()
     {
