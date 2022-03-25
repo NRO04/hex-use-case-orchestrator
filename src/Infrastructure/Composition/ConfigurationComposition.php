@@ -54,7 +54,7 @@ class ConfigurationComposition implements CompositionApiRepository
      * Gets options from the configuration file
      * @throws Exception
      */
-    function getConfigOption(string $key): array
+    function getConfigOption(string $key): mixed
     {
         if (!array_key_exists($key, $this->configurationApiComposition)) {
             throw new Exception("Key {$key} not found in configuration");
