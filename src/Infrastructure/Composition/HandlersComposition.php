@@ -59,7 +59,7 @@ class HandlersComposition implements CompositionApiRepository
     function execute(): void
     {
 
-        if (!$this->configuration_file_data['allow_empty-handlers']) {
+        if (!$this->configuration_file_data['allow-empty-handlers']) {
 
             $this->checkIfHandlersAreSet();
 
