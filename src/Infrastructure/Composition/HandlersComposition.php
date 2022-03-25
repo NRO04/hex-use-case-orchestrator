@@ -14,7 +14,6 @@ class HandlersComposition implements CompositionApiRepository
         ]
     ];
     private array $handlerCompositionApi;
-    private array $reverseHandlersComposition; // reverse of handler composition api
     private array $handlers;
     private array $configuration_file_data;
 
