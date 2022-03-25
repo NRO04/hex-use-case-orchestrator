@@ -67,7 +67,7 @@ class BuildHandlers implements CompositionApiRepository
      */
     function compose(): array
     {
-        return $this->configurationComposition->getConfigOption('allow_empty-handlers')
+        return $this->configurationComposition->getConfigOption('allow-empty-handlers')
             ? []
             : $this->buildHandlers();
     }
